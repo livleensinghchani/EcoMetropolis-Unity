@@ -29,12 +29,6 @@ public class MousePosition : MonoBehaviour
 
         if(Physics.Raycast(ray, out rayData, 100, validSurface)) {
             lastValidPosition = rayData.point;
-
-            // lastValidPosition = new Vector3(
-            //     (int)math.round(lastValidPosition.x),
-            //     (int)math.round(lastValidPosition.y),
-            //     (int)math.round(lastValidPosition.z)
-            //     );
             
             trackingSphere.position = lastValidPosition;
         }
