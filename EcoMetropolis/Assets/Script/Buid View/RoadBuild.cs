@@ -6,12 +6,15 @@ public class RoadBuild : MonoBehaviour
 {
 // Global ----------------------------
 
-    
+    ObjectList srcObjectList;
 
 // Local -----------------------------
 
     [SerializeField]
     private Vector3 lastValidLocation;
+
+    [SerializeField]
+    private Vector3Int lastValidCell;
 
     [SerializeField]
     private Camera srcCamera;
@@ -27,9 +30,13 @@ public class RoadBuild : MonoBehaviour
 [Space(10)]
 
     [SerializeField]
-    private Transform defaultRoad;
+    private GameObject defaultRoad;
 
 // Function --------------------------
+
+    private void Start() {
+        srcObjectList = FindObjectOfType<ObjectList>();
+    }
 
     private void Update() {
         MouseTrack();
@@ -43,7 +50,19 @@ public class RoadBuild : MonoBehaviour
         if(Physics.Raycast(ray, out rayData, 100, targetMask)) {
             lastValidLocation = rayData.point;
 
-            defaultRoad.position = floorGrid.WorldToCell(lastValidLocation);
+            defaultRoad.transform.position = floorGrid.WorldToCell(lastValidLocation);
+            lastValidCell = floorGrid.WorldToCell(lastValidLocation);
+
+            MouseInput();
+        }
+    }
+
+    private void MouseInput() {
+        if(Input.GetMouseButton(0)) {
+            if(srcObjectList.GetLocationIndex(lastValidCell)) {
+                srcObjectList.SetLocationIndex(lastValidCell, "Road");
+                Instantiate(defaultRoad, lastValidCell, Quaternion.identity);
+            }
         }
     }
 }
