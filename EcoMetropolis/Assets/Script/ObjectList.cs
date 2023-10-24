@@ -9,7 +9,7 @@ public class ObjectList : MonoBehaviour
 
 // Local -------------------------------
 
-    private Dictionary<Vector3Int, string> DBuildIndex = new Dictionary<Vector3Int, string>();
+    private Dictionary<Vector3Int, GameObject> DBuildIndex = new Dictionary<Vector3Int, GameObject>();
 
 // Function -----------------------------
 
@@ -27,8 +27,14 @@ public class ObjectList : MonoBehaviour
         }
     }
 
-    public void SetLocationIndex(Vector3Int locationData, string objectName) {
-        DBuildIndex.Add(locationData, objectName);
+    public void SetLocationIndex(Vector3Int locationData, GameObject gameObject, int input) {
+        if(input == 1) {
+            DBuildIndex.Add(locationData, gameObject);
+        }
+        else if(input == 0) {
+            Destroy(DBuildIndex[locationData]);
+            DBuildIndex.Remove(locationData);
+        }
     }
 
 }
