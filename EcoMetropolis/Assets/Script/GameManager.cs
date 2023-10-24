@@ -27,12 +27,7 @@ public class GameManager : MonoBehaviour
             }
             case (1): {
                 GameState = setState;
-                srcViewMode.text = "Road Build";
-                break;
-            }
-            case (2): {
-                GameState = setState;
-                srcViewMode.text = "Block Build";
+                srcViewMode.text = "Build";
                 break;
             }
             default : {
